@@ -1,0 +1,10 @@
+{
+    "stats": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/statsLocations.json",
+    "daily_stats": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/stats.json",
+    "vaccination": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/state_vaccination_metrics.json",
+    "daily_vaccination": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/state_vaccination_metrics_daily.json",
+    "reginal_tests": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/data_tests.json",
+    "daily_tests": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/test_24.json",
+    "population": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/population.json",
+    "fatalities": "https://nswdac-covid-19-postcode-heatmap.azurewebsites.net/datafiles/fatalitiesdata.json"
+}

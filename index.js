@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios')
 const fs = require('fs');
 
-const endpoints = require('./nsw_health_endpoints.js');
+const endpoints = require('./endpoints.json');
 
 const {
     formatFatalities
