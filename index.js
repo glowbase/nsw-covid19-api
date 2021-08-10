@@ -2,11 +2,13 @@ const express = require('express');
 const axios = require('axios')
 const fs = require('fs');
 
-const endpoints = require('./endpoints.json');
+const {
+    nsw:nsw_endpoints
+} = require('./src/endpoints.json');
 
 const {
     formatFatalities
-} = require('./helpers.js');
+} = require('./src/helpers.js');
 
 //! EXPRESS MIDDLEWARE
 const requestLog = (req, res, next) => {
@@ -17,7 +19,7 @@ const requestLog = (req, res, next) => {
     const path = req.path;
 
     fs.appendFileSync(
-        'logs.txt',
+        './src/logs.txt',
         `${ip} ${date} ${method} ${status} ${path}\n`
     );
 
@@ -31,15 +33,15 @@ api.use(requestLog);
 
 
 //! LOCAL ENDPOINTS
-api.get('/ping', (req, res) => {
-    res.status(200).json('Pong!');
+api.get('/status', (req, res) => {
+    res.status(200).json('Everything seems to be working...');
 });
 
 //? --------------------------------------------------
 //? Recovered
 //? --------------------------------------------------
-api.get('/recovered/total', async (req, res) => {
-    const { data: { data } } = await axios(endpoints.stats);
+api.get('/nsw/recovered/total', async (req, res) => {
+    const { data: { data } } = await axios(nsw_endpoints.stats);
 
     res.status(200).json({
         total: data[0].Recovered
@@ -49,9 +51,9 @@ api.get('/recovered/total', async (req, res) => {
 //? --------------------------------------------------
 //? Fatalities
 //? --------------------------------------------------
-api.get('/fatalities/', async (req, res) => {
-    const { data: { data:stats } } = await axios(endpoints.stats);
-    const { data: { data:fatalities } } = await axios(endpoints.fatalities);
+api.get('/nsw/fatalities/', async (req, res) => {
+    const { data: { data:stats } } = await axios(nsw_endpoints.stats);
+    const { data: { data:fatalities } } = await axios(nsw_endpoints.fatalities);
 
     res.status(200).json({
         age_groups: formatFatalities(fatalities),
@@ -59,17 +61,17 @@ api.get('/fatalities/', async (req, res) => {
     });
 });
 
-api.get('/fatalities/total', async (req, res) => {
-    const { data: { data } } = await axios(endpoints.stats);
+api.get('/nsw/fatalities/total', async (req, res) => {
+    const { data: { data } } = await axios(nsw_endpoints.stats);
 
     res.status(200).json({
         total: data[0].Deaths
     });
 });
 
-api.get('/fatalities/age_group/:age_group', async (req, res) => {
+api.get('/nsw/fatalities/age_group/:age_group', async (req, res) => {
     const { age_group } = req.params;
-    const { data: { data:fatalities } } = await axios(endpoints.fatalities);
+    const { data: { data:fatalities } } = await axios(nsw_endpoints.fatalities);
 
     res.status(200).json(
         formatFatalities(fatalities)[age_group] ||
@@ -77,19 +79,19 @@ api.get('/fatalities/age_group/:age_group', async (req, res) => {
     );
 });
 
-api.get('/acquired', async (req, res) => {
+api.get('/nsw/acquired', async (req, res) => {
 
 });
 
-api.get('/acquired/:transmission_method', async (req, res) => {
+api.get('/nsw/acquired/:transmission_method', async (req, res) => {
 
 });
 
-api.get('/cases', async (req, res) => {
+api.get('/nsw/cases', async (req, res) => {
 
 });
 
-api.get('/cases/total', async (req, res) => {
+api.get('/nsw/cases/total', async (req, res) => {
 
 });
 

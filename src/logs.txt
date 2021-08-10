@@ -52,3 +52,4 @@
 ::1 2021-08-10T06:39:20.270Z GET 200 /fatalities/age_group/50-59/
 ::1 2021-08-10T06:39:21.184Z GET 200 /fatalities/age_group/50-59/
 ::1 2021-08-10T07:27:52.485Z GET 200 /fatalities/age_group/50-59/
+::1 2021-08-10T08:19:17.310Z GET 200 /fatalities/

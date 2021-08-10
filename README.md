@@ -7,10 +7,32 @@ This repository gathers COVID-19 case, testing and vaccination rollout data for 
 **Important Note: ** The data is provided as-is. Although all data is scraped from legitimate sources published by NSW Health and other government departments, I cannot guarantee the accuracy or timeliness of the data. Use at your own risk.
 ## Direct Access to Data
 The data should hopefully be as up to date as possible. The data is updated at roughly 11am (NSW case and data update) and 8pm (Department of Health website update).
-
 This data is being provided to the public for free. Please do not abuse access to the following API.
 
-The data is available via the following API endpoints.
+The API host is https://nswcovidapi-ehpvctq4ra-ts.a.run.app/. This will change soon to something a little nicer.
+
+### Endpoints
+The data is available via the following API endpoints (more will come as I develop them).
+
+STATES: ```nsw```
+
+**Status**
+
+/```state```/status
+
+**Recovered**
+
+/```state```/recovered/total
+
+**Fatalities**
+
+AGE GROUPS: ```0-9```, ```19-19```, ```20-29```, ```30-39```, ```40-49```, ```50-59```, ```60-69```, ```70-79```, ```80-89```, ```90+```
+
+/```state```/fatalities/
+
+/```state```/fatalities/total
+
+/```state```/fatalities/age_group/```age group```
 
 
 
