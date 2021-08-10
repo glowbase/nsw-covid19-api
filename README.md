@@ -14,26 +14,33 @@ The API host is https://nswcovidapi-ehpvctq4ra-ts.a.run.app/. This will change s
 ### Endpoints
 The data is available via the following API endpoints (more will come as I develop them).
 
-STATES: ```nsw```
+States: ```nsw```
 
 **Status**
 
-/```state```/status
+/status/
 
 **Recovered**
 
-/```state```/recovered/total
+/```state```/recovered/total/
 
 **Fatalities**
 
-AGE GROUPS: ```0-9```, ```19-19```, ```20-29```, ```30-39```, ```40-49```, ```50-59```, ```60-69```, ```70-79```, ```80-89```, ```90+```
+Age Groups: ```0-9```, ```19-19```, ```20-29```, ```30-39```, ```40-49```, ```50-59```, ```60-69```, ```70-79```, ```80-89```, ```90+```
 
 /```state```/fatalities/
 
-/```state```/fatalities/total
+/```state```/fatalities/total/
 
-/```state```/fatalities/age_group/```age group```
+/```state```/fatalities/age_group/```age group```/
 
+**Acquired**
+
+Transmission Methods: ```local```, ```interstate```, ```overseas```
+
+/```state```/acquired/
+
+/```state```/acquired/```transmission method```/
 
 
 ## Run Locally

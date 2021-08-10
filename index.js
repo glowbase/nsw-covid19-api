@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios')
 const fs = require('fs');
 
+//! HELPERS
 const {
     nsw:nsw_endpoints
 } = require('./src/endpoints.json');
@@ -33,6 +34,10 @@ api.use(requestLog);
 
 
 //! LOCAL ENDPOINTS
+api.get('/', (req, res) => {
+    res.redirect('https://github.com/glowbase/nsw-covid19-api#endpoints');
+});
+
 api.get('/status', (req, res) => {
     res.status(200).json('Everything seems to be working...');
 });
@@ -69,36 +74,67 @@ api.get('/nsw/fatalities/total', async (req, res) => {
     });
 });
 
-api.get('/nsw/fatalities/age_group/:age_group', async (req, res) => {
+api.get('/nsw/fatalities/age_group/:age_group/total', async (req, res) => {
     const { age_group } = req.params;
-    const { data: { data:fatalities } } = await axios(nsw_endpoints.fatalities);
+    const { data: { data } } = await axios(nsw_endpoints.fatalities);
 
-    res.status(200).json(
-        formatFatalities(fatalities)[age_group] ||
-        'Please provide a valid age group.'
-    );
+    if (!formatFatalities(data)[age_group]) {
+        res.status(400).json('Please provide a valid age group.');
+    }
+
+    res.status(200).json({
+        total: formatFatalities(data)[age_group]
+    });
 });
 
-api.get('/nsw/acquired', async (req, res) => {
+//? --------------------------------------------------
+//? Acquired
+//? --------------------------------------------------
+api.get('/nsw/acquired/new', async (req, res) => {
+    const { data: { data } } = await axios(nsw_endpoints.stats);
 
+    res.status(200).json({
+        local: data[0].AcquiredLocally,
+        interstate: data[0].AcquiredInterstate,
+        overseas: data[0].AcquiredOverseas,
+        total: data[0].NewCases
+    });
 });
 
-api.get('/nsw/acquired/:transmission_method', async (req, res) => {
+api.get('/nsw/acquired/:transmission_method/new', async (req, res) => {
+    const { data: { data } } = await axios(nsw_endpoints.stats);
+    const transmission_method = req.params.transmission_method.toLowerCase();
+    
+    const transmission_methods = {
+        'local': 'AcquiredLocally',
+        'interstate': 'AcquiredInterstate',
+        'overseas': 'AcquiredOverseas'
+    };
 
+    if (!transmission_methods[transmission_method]) {
+        res.status(400).json('Please provide a valid transmission method.');
+    }
+    
+    res.status(200).json({
+        total: data[0][transmission_methods[transmission_method]]
+    });
 });
 
+//? --------------------------------------------------
+//? Cases
+//? --------------------------------------------------
 api.get('/nsw/cases', async (req, res) => {
+    // total, 24 hours, interstate
+});
 
+api.get('/nsw/cases/new', async (req, res) => {
+    // 24 hours
 });
 
 api.get('/nsw/cases/total', async (req, res) => {
-
+    // total
 });
 
 
 //! EXPRESS SERVER
-const port = process.env.PORT || 3000;
-
-api.listen(port, () => {
-    console.log(`\nAPI LISTENING ON PORT ${port}`);
-});
+api.listen(process.env.PORT || 3000);
