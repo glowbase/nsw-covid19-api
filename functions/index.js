@@ -15,7 +15,9 @@ firebase.initializeApp({
 });
 
 exports.ScrapeWebsites = functions.pubsub.schedule('*/10 * * * *').timeZone('Australia/Sydney').onRun(async () => {
-    await scrapeStatsNSW();
+    
     await scrapeStatsLocal();
     await scrapeCaseAlerts();
 });
+
+scrapeStatsNSW();

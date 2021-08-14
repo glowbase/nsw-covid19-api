@@ -20,7 +20,7 @@ function removeFormat(text) {
     const strings = [',', '"', '*'];
 
     strings.forEach(string => {
-        text = text.replaceAll(string, '');
+        string = string.split(string).join('');
     });
 
     return text;
