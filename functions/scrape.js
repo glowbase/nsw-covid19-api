@@ -3,6 +3,7 @@ const axios = require('axios');
 const { parse } = require('node-html-parser');
 const papaparse = require('papaparse');
 const fs = require('fs').promises;
+const os = require('os');
 
 const {
     removeFormat,
@@ -89,36 +90,36 @@ const {
         }
     };
 
-    await fs.writeFile(`./data/website.html`, data);
-    await fs.writeFile('./data/cases.json', JSON.stringify(casesData));
-    await fs.writeFile('./data/testing.json', JSON.stringify(testingData));
-    await fs.writeFile('./data/vaccinations.json', JSON.stringify(vaccinationsData));
+    await fs.writeFile(`/tmp/website.html`, data);
+    await fs.writeFile('/tmp/cases.json', JSON.stringify(casesData));
+    await fs.writeFile('/tmp/testing.json', JSON.stringify(testingData));
+    await fs.writeFile('/tmp/vaccinations.json', JSON.stringify(vaccinationsData));
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/website.html', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/website.html', {
         destination: `nsw/history/${getFormattedDate()}/website.html`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/cases.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/cases.json', {
         destination: `nsw/history/${getFormattedDate()}/cases.json`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/testing.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/testing.json', {
         destination: `nsw/history/${getFormattedDate()}/testing.json`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/vaccinations.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/vaccinations.json', {
         destination: `nsw/history/${getFormattedDate()}/vaccinations.json`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/cases.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/cases.json', {
         destination: 'nsw/cases.json'
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/testing.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/testing.json', {
         destination: 'nsw/testing.json'
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/vaccinations.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/vaccinations.json', {
         destination: 'nsw/vaccinations.json'
     });
 
@@ -174,23 +175,23 @@ async function scrapeStatsLocal() {
         });
     });
 
-    await fs.writeFile('./data/lhd_cases.csv', lhd_csv);
-    await fs.writeFile('./data/lga_cases.csv', lga_csv);
-    await fs.writeFile('./data/stats_local.json', JSON.stringify(data));
+    await fs.writeFile('/tmp/lhd_cases.csv', lhd_csv);
+    await fs.writeFile('/tmp/lga_cases.csv', lga_csv);
+    await fs.writeFile('/tmp/stats_local.json', JSON.stringify(data));
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/lhd_cases.csv', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/lhd_cases.csv', {
         destination: `nsw/history/${getFormattedDate()}/lhd_cases.csv`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/lga_cases.csv', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/lga_cases.csv', {
         destination: `nsw/history/${getFormattedDate()}/lga_cases.csv`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/stats_local.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/stats_local.json', {
         destination: `nsw/history/${getFormattedDate()}/cases_by_location.json`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/stats_local.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/stats_local.json', {
         destination: 'nsw/cases_by_location.json'
     });
 
@@ -256,18 +257,18 @@ async function scrapeCaseAlerts() {
         });
     });
 
-    await fs.writeFile('./data/venue_data.json', JSON.stringify(locations));
-    await fs.writeFile('./data/case_locations.json', JSON.stringify(locations_data));
+    await fs.writeFile('/tmp/venue_data.json', JSON.stringify(locations));
+    await fs.writeFile('/tmp/case_locations.json', JSON.stringify(locations_data));
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/venue_data.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/venue_data.json', {
         destination: `nsw/history/${getFormattedDate()}/venue_data.json`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/case_locations.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/case_locations.json', {
         destination: `nsw/history/${getFormattedDate()}/locations.json`
     });
 
-    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('./data/case_locations.json', {
+    await firebase.storage().bucket('nsw-covid-api.appspot.com').upload('/tmp/case_locations.json', {
         destination: `nsw/locations.json`
     });
 
