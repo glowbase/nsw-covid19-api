@@ -17,10 +17,10 @@
  * @returns 
  */
 function removeFormat(text) {
-    const strings = [',', '"', '*'];
+    const strings = [',', '"', '*', ' '];
 
     strings.forEach(string => {
-        string = string.split(string).join('');
+        text = text.split(string).join('');
     });
 
     return text;
