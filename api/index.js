@@ -28,4 +28,10 @@ api.get('/cases/:period/', async (req, res) => {
     res.status(200).json(data[period]);
 });
 
+api.get('/testing/', async (req, res) => {
+    const { data } = await axios(base_url + storageEncode('nsw/testing.json'));
+
+    res.status(200).json(data);
+});
+
 api.listen(process.env.PORT || 3000);
