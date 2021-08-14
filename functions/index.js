@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const firebase = require('firebase-admin');
 
-const serviceAccount = require('./service_account.json');
+// const serviceAccount = require('./service_account.json');
 
 const {
     scrapeStatsNSW,
@@ -10,7 +10,7 @@ const {
 } = require('./scrape.js');
 
 firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
+    // credential: firebase.credential.cert(serviceAccount),
     storageBucket: 'nsw-covid-api.appspot.com'
 });
 
