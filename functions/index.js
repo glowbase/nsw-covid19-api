@@ -14,7 +14,7 @@ firebase.initializeApp({
     // storageBucket: 'nsw-covid-api.appspot.com'
 });
 
-exports.ScrapeWebsites = functions.pubsub.schedule('*/10 * * * *').timeZone('Australia/Sydney').onRun(async () => {
+exports.ScrapeWebsites = functions.region('australia-southeast1').pubsub.schedule('*/10 * * * *').timeZone('Australia/Sydney').onRun(async () => {
     await scrapeStatsNSW();
     await scrapeStatsLocal();
     await scrapeCaseAlerts();
